@@ -33,7 +33,7 @@ public class PostRepository {
         String content = post.getContent();
         long newID = -1;
         if (id == 0) {
-            do {
+            do {  //проверка для ситуаций, если до этого посты шли с указанием ID и, соответственно, номера ID по порядку могут быть уже заняты
                 newID = idCounter.incrementAndGet();
             } while (repository.containsKey(newID));
 
