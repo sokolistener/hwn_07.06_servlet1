@@ -13,7 +13,8 @@ public class MainServlet extends HttpServlet {
     private static final String GET = "GET";
     private static final String POST = "POST";
     private static final String DELETE = "DELETE";
-    private static final String webPath = "/api/posts";
+    private static final String WEBPATH = "/api/posts";
+    private static final String WEBPATHWID = WEBPATH+"/\\d+";
     private PostController controller;
 
     @Override
@@ -30,22 +31,22 @@ public class MainServlet extends HttpServlet {
             final var path = req.getRequestURI();
             final var method = req.getMethod();
             // primitive routing
-            if (method.equals(GET) && path.equals(webPath)) {
+            if (method.equals(GET) && path.equals(WEBPATH)) {
                 controller.all(resp);
                 return;
             }
-            if (method.equals(GET) && path.matches(webPath+"/\\d+")) {
+            if (method.equals(GET) && path.matches(WEBPATHWID)) {
                 // easy way
                 final var id = parseId(path);
                 System.out.println(id);
                 controller.getById(id, resp);
                 return;
             }
-            if (method.equals(POST) && path.equals(webPath)) {
+            if (method.equals(POST) && path.equals(WEBPATH)) {
                 controller.save(req.getReader(), resp);
                 return;
             }
-            if (method.equals(DELETE) && path.matches(webPath+"/\\d+")) {
+            if (method.equals(DELETE) && path.matches(WEBPATHWID)) {
                 // easy way
                 final var id = parseId(path);
                 controller.removeById(id, resp);
